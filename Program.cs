@@ -35,7 +35,7 @@ while (isrunning)
 {
     print.PrintMenu();
     print.PrintCurrentCard(game.CurrentCard);
-
+    Console.WriteLine($"Your current balance is {user.Wallet.ToString()}");
     var command = user.GetInput();
 
     switch (command)
@@ -65,9 +65,6 @@ while (isrunning)
             break;
         case 2:
             user.Wallet.CurrentBet = print.GetInput();
-            break;
-        case 3:
-            Console.WriteLine($"Your current balance is {user.Wallet.ToString()}");
             break;
         default:
             Console.WriteLine("Invalid option");

@@ -16,7 +16,6 @@ class Print
     {
         Console.WriteLine("1 - Guess");
         Console.WriteLine("2 - Bet");
-        Console.WriteLine("3 - Check balance");
     }
     public void GuessInstructions()
     {
