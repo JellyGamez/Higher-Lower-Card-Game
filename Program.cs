@@ -18,6 +18,11 @@ using Core;
 // I - Interface Segration
 // D - Dependency Inversion
 
+// TODO;
+// - Improve UI
+// - Validate Bet amount
+// - Bonus; Try implement basic AI
+
 
 Console.Write("Enter your player name: ");
 var name = Console.ReadLine();
