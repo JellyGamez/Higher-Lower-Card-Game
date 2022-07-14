@@ -56,6 +56,7 @@ while (isrunning)
         Console.WriteLine($"You guessed correct {user.Correct} times and wrong {user.Wrong} times");
         break;
     }
+    
     print.PrintCurrentRound(game.CurrentRound);
     print.PrintCurrentCard(game.CurrentCard);
     print.PrintCurrentBalance(user.Wallet, user.ToString());
