@@ -2,13 +2,12 @@
 // Notes
 // - Cards: Ace = 1, J = 11, Q = 12, K = 13
 // 52 total cards
-// Opptions: Higher, Lower, Equal
+// Options: Higher, Lower, Equal
 
 // System picks first card
 // User inputs option
 // System picks second card
 // If user is right then rewatd, otherwise penalize
-using Core;
 
 // SOLID Principles = S.O.L.I.D.
 
@@ -23,6 +22,7 @@ using Core;
 // - Validate Bet amount
 // - Bonus; Try implement basic AI
 
+using Core;
 
 Console.Write("Enter your player name: ");
 var name = Console.ReadLine();
