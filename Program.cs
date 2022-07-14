@@ -49,12 +49,20 @@ while (isrunning)
 
     game.GenerateNextCard();
 
-    Random rnd = new Random();
     var AIGuess = rnd.Next(-1, 2);
     Console.WriteLine($"AI's Guess: {AIGuess}");
 
     var UserGuess = print.GetInput($"{user.Name}'s guess: ");
     Console.WriteLine();
+    if (AIGuess != UserGuess)
+    {
+        Console.WriteLine("Do you want to raise? (y/n)");
+        if (Console.ReadLine() == "y")
+        {
+            Console.WriteLine("Enter amount: ");
+            user.Wallet.raise(print.GetInput(""));
+        }
+    }
     try 
     {
         if (game.CheckGuess(UserGuess))
