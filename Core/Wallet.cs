@@ -18,21 +18,29 @@ namespace Core
             DefaultBet = 0;
         }
 
-        public void add()
+        public void add(int amount)
         {
-            Balance += CurrentBet;
+            Balance += amount;
+        }
+
+        public void subtract(int amount)
+        {
+            Balance -= amount;
+        }
+        
+        public void ResetBet()
+        {
             CurrentBet = DefaultBet;
         }
 
-        public void subtract()
+        public bool raise(int amount)
         {
-            Balance -= CurrentBet;
-            CurrentBet = DefaultBet;
-        }
-        
-        public void raise(int raise)
-        {
-            CurrentBet += raise;
+            if (CurrentBet + amount <= Balance)
+            {
+                CurrentBet += amount;
+                return true;
+            }
+            return false;
         }
 
         public override string ToString()

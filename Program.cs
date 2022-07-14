@@ -42,9 +42,24 @@ Random rnd = new Random();
 bool isrunning = true;
 while (isrunning)
 {
+    if (user.LoseCondition())
+    {
+        Console.WriteLine("You lost!\n");
+        Console.WriteLine($"You survived {game.CurrentRound - 1} rounds");
+        Console.WriteLine($"You guessed {user.Correct} correct and {user.Wrong} wrong\n");
+        break;
+    }
+    else if (AI.LoseCondition())
+    {
+        Console.WriteLine("You won!");
+        Console.WriteLine($"You survived {game.CurrentRound - 1} rounds");
+        Console.WriteLine($"You guessed correct {user.Correct} times and wrong {user.Wrong} times");
+        break;
+    }
     print.PrintCurrentRound(game.CurrentRound);
     print.PrintCurrentCard(game.CurrentCard);
-    print.PrintCurrentBalance(user.Wallet);
+    print.PrintCurrentBalance(user.Wallet, user.ToString());
+    print.PrintCurrentBalance(AI.Wallet, AI.ToString());
     print.GuessInstructions();
 
     game.GenerateNextCard();
@@ -54,31 +69,44 @@ while (isrunning)
 
     var UserGuess = print.GetInput($"{user.Name}'s guess: ");
     Console.WriteLine();
+
+    if (UserGuess != -1 && UserGuess != 0 && UserGuess != 1)
+    {
+        Console.WriteLine("Invalid guess");
+        continue;
+    }
+
     if (AIGuess != UserGuess)
     {
-        Console.WriteLine("Do you want to raise? (y/n)");
+        Console.Write("Do you want to raise? (y/n):");
         if (Console.ReadLine() == "y")
         {
             Console.WriteLine("Enter amount: ");
-            user.Wallet.raise(print.GetInput(""));
+            if(!user.Wallet.raise(print.GetInput("")))
+                Console.WriteLine("You don't have enough funds!");
         }
     }
-    try 
+
+    if (game.CheckGuess(UserGuess))
     {
-        if (game.CheckGuess(UserGuess))
-            {
-                Console.WriteLine("You were correct!\n");
-                user.Wallet.add();
-            }
-        else
-            {
-                Console.WriteLine("You were wrong!\n");
-                user.Wallet.subtract();
-            }
-        game.NextRound();
+        Console.WriteLine("You were correct!\n");
+        user.Wallet.add(user.Wallet.CurrentBet);
+        user.Correct++;
     }
-    catch (Exception e)
+    else
     {
-        Console.WriteLine(e.Message);
+        Console.WriteLine("You were wrong!\n");
+        user.Wallet.subtract(user.Wallet.CurrentBet);
+        user.Wrong++;
     }
+
+    if (game.CheckGuess(AIGuess))
+        AI.Wallet.add(AI.Wallet.CurrentBet);
+    else
+        AI.Wallet.subtract(AI.Wallet.CurrentBet);
+
+    AI.Wallet.ResetBet();
+    user.Wallet.ResetBet();
+
+    game.NextRound();
 }

@@ -7,9 +7,9 @@ namespace Core
             Console.WriteLine("Current card is " + card);
         }
 
-        public void PrintCurrentBalance(Wallet wallet)
+        public void PrintCurrentBalance(Wallet wallet, string name)
         {
-            Console.WriteLine("Current balance is " + wallet + '\n');
+            Console.WriteLine($"{name}'s current balance is {wallet}");
         }
 
         public int GetInput(string message)
