@@ -1,33 +1,36 @@
 namespace Core
 {
-
     class Card
     {
         public int Number { get; private set; } = 0;
-        public string Color { get; private set; } = "red";
-        public string Symbol { get; private set; } = "heart";
 
-        public Card(){
+        public Card()
+        {
             
         }
 
-        public Card(int number){
+        public Card(int number)
+        {
             Number = number;
         }
 
-        public static bool operator <(Card left, Card right){
+        public static bool operator <(Card left, Card right)
+        {
             return left.Number < right.Number;
         }
 
-         public static bool operator >(Card left, Card right){
+        public static bool operator >(Card left, Card right)
+        {
             return left.Number > right.Number;
         }
 
-        public static bool operator ==(Card left, Card right){
+        public static bool operator ==(Card left, Card right)
+        {
             return left.Number == right.Number;
         }
 
-          public static bool operator !=(Card left, Card right){
+        public static bool operator !=(Card left, Card right)
+        {
             return left.Number != right.Number;
         }
 
@@ -48,6 +51,4 @@ namespace Core
             }
         }
     }
-
-
 }

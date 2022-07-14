@@ -1,13 +1,15 @@
-namespace Core {
-    class Game
+namespace Core 
 {
+    class Game
+    {
         public Card CurrentCard {get; private set;}
         public Card NextCard {get; private set;}
-        public int Round {get; private set;}
+        public int CurrentRound {get; private set;}
          
         public Game() 
         {
             CurrentCard = GenerateNewCard();
+            CurrentRound = 1;
         }
 
         public bool CheckGuess(int guess)
@@ -25,19 +27,22 @@ namespace Core {
                     throw new Exception("Invalid guess");
             }
         }
+
         public Card GenerateNewCard()
         {
             Random random = new Random();
             return new Card(random.Next(1, 14));
         }
+
         public void GenerateNextCard()
         {
             NextCard = GenerateNewCard();
         }
-        public void Advance()
+        
+        public void NextRound()
         {
             CurrentCard = NextCard;
-            Round += 1;
+            CurrentRound++;
         }
-}
+    }   
 }

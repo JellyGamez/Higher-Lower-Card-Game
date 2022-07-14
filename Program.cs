@@ -23,58 +23,54 @@
 // - Bonus; Try implement basic AI
 
 using Core;
+using System;
 
 Console.Write("Enter your player name: ");
 var name = Console.ReadLine();
-Console.WriteLine($"Welcome, {name}!");
+Console.WriteLine($"Welcome, {name}!\n");
 if (name == null)
     return;
+Console.Write("Default betting amount: ");
+var DefaultBet = Int32.Parse(Console.ReadLine());
 
 Game game = new Game();
-Wallet wallet = new Wallet(500);
-
-User user = new User(name, wallet);
+User user = new User(name, new Wallet(500, DefaultBet));
+User AI = new User("AI", new Wallet(500, DefaultBet));
 Print print = new Print();
+Random rnd = new Random();
+
 bool isrunning = true;
 while (isrunning)
 {
-    print.PrintMenu();
+    print.PrintCurrentRound(game.CurrentRound);
     print.PrintCurrentCard(game.CurrentCard);
-    Console.WriteLine($"Your current balance is {user.Wallet.ToString()}");
-    var command = user.GetInput();
+    print.PrintCurrentBalance(user.Wallet);
+    print.GuessInstructions();
 
-    switch (command)
+    game.GenerateNextCard();
+
+    Random rnd = new Random();
+    var AIGuess = rnd.Next(-1, 2);
+    Console.WriteLine($"AI's Guess: {AIGuess}");
+
+    var UserGuess = print.GetInput($"{user.Name}'s guess: ");
+    Console.WriteLine();
+    try 
     {
-        case 1:
-            
-            print.GuessInstructions();
-            var guess = print.GetInput();
-            game.GenerateNextCard();
-
-            try {
-                if (game.CheckGuess(guess))
-                    {
-                        Console.WriteLine("Correct!");
-                        user.Wallet.add();
-                    }
-                else
-                    {
-                        Console.WriteLine("Wrong!");
-                        user.Wallet.subtract();
-                    }
-            } catch (Exception e)
+        if (game.CheckGuess(UserGuess))
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("You were correct!\n");
+                user.Wallet.add();
             }
-            game.Advance();
-            break;
-        case 2:
-            user.Wallet.CurrentBet = print.GetInput();
-            break;
-        default:
-            Console.WriteLine("Invalid option");
-            break;
+        else
+            {
+                Console.WriteLine("You were wrong!\n");
+                user.Wallet.subtract();
+            }
+        game.NextRound();
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e.Message);
     }
 }
-
-    
