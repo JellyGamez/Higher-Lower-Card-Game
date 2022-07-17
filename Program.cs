@@ -31,13 +31,16 @@ Console.WriteLine($"Welcome, {name}!\n");
 if (name == null)
     return;
 Console.Write("Default betting amount: ");
+
 var DefaultBet = Int32.Parse(Console.ReadLine());
 var CurrentBet = 0;
+
 Game game = new Game();
 User user = new User(name, new Wallet(InitAmount));
 User AI = new User("AI", new Wallet(InitAmount));
 Print print = new Print();
 Random rnd = new Random();
+
 Menu UserGuessMenu = new Menu("UserGuess", new List<MenuItem>{
     new MenuItem("l", "lower"),
     new MenuItem("e", "equal"),
