@@ -67,10 +67,10 @@ Console.Write("Do you want to raise? (y/n):");
         {
             try {
                 raise = print.GetInput("Enter amount: ");
-                if (user.Wallet.Greater(raise)){
+                if (user.Wallet.Has(raise)){
                     invalidAmount = false;
                     user.Wallet.subtract(raise);
-                    if (AI.Wallet.Greater(raise))
+                    if (AI.Wallet.Has(raise))
                     {
                         AI.Wallet.subtract(raise); // Check if has money, if not go all in
                         CurrentBet += 2 * raise;
@@ -159,7 +159,7 @@ while (isrunning)
     if (user.LoseCondition() || AI.LoseCondition())
     {
         Console.WriteLine(user.LoseCondition() ? "You lost!\n" : "You won!\n");
-        Console.WriteLine($"You survived {game.CurrentRound - 1} rounds");
+        Console.WriteLine($"You survived {game.CurrentRound} rounds");
         Console.WriteLine($"You guessed {user.Correct} correct and {user.Wrong} wrong\n");
 
         LoseMenu.Show("Begin a new game?");
