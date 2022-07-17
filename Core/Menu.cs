@@ -2,7 +2,7 @@ namespace Core
 {
     class Menu
     {
-        public List<string> Items {get; private set;} = new List<string>();
+        public List<MenuItem> Items {get; private set;} = new List<MenuItem>();
         public string Name {get; private set;}
 
         public Menu(string name)
@@ -10,7 +10,7 @@ namespace Core
             Name = name;
         }
 
-        public Menu(string name, List<string> items)
+        public Menu(string name, List<MenuItem> items)
         {
             Name = name;
             Items = items;
@@ -19,20 +19,30 @@ namespace Core
         {
             return Name;
         }
+
+        public void Show(string label) 
+        {
+            Console.WriteLine(label);
+            foreach (MenuItem item in Items)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
         public string Choose()
         {
             string? UserOption;
             bool invalidOption = false;
 
             do {
-                
+
                 UserOption = Console.ReadLine();
-                invalidOption =!IsValid(UserOption);
+                invalidOption = !IsValid(UserOption);
                 
                 if (invalidOption) 
                 {
                     Console.WriteLine();
-                    Console.WriteLine("Invalid guess");
+                    Console.WriteLine("Invalid option");
                 }
 
             } while(invalidOption);
@@ -41,7 +51,14 @@ namespace Core
         }
         public bool IsValid(string? id)
         {
-            return  !String.IsNullOrEmpty(id) && Items.Contains(id);
+            if (String.IsNullOrEmpty(id))
+                return false;
+            foreach (MenuItem item in Items)
+            {
+                if (item.Id == id)
+                    return true;
+            }
+            return false;
         }
     }
 }

@@ -18,40 +18,44 @@
 // D - Dependency Inversion
 
 // Next Time:
-// - Corelate menu options with UI
 // - Return user option with generic types
-// - Introduce MenuItem
 // - Improve UI - Show menu inline, stacked, etc/
+// - Resolve warnings - homework
+// - Bet class - Homework
 
 using Core;
-
 Console.Write("Enter your player name: ");
 var name = Console.ReadLine();
+var InitAmount = 500;
 Console.WriteLine($"Welcome, {name}!\n");
 if (name == null)
     return;
 Console.Write("Default betting amount: ");
 var DefaultBet = Int32.Parse(Console.ReadLine());
-
+var CurrentBet = 0;
 Game game = new Game();
-User user = new User(name, new Wallet(500, DefaultBet));
-User AI = new User("AI", new Wallet(500, DefaultBet));
+User user = new User(name, new Wallet(InitAmount));
+User AI = new User("AI", new Wallet(InitAmount));
 Print print = new Print();
 Random rnd = new Random();
-Menu UserGuessMenu = new Menu("UserGuess", new List<string>{"-1", "0", "1"});
-
-var options = new List<int>{-1, 0, 1};
+Menu UserGuessMenu = new Menu("UserGuess", new List<MenuItem>{
+    new MenuItem("l", "lower"),
+    new MenuItem("e", "equal"),
+    new MenuItem("h", "higher")
+});
+Menu LoseMenu = new Menu("Lose", new List<MenuItem>{
+    new MenuItem("y", "yes"),
+    new MenuItem("n", "no")
+});
 
 bool isrunning = true;
 
 void NextRound(){
-    AI.Wallet.ResetBet();
-    user.Wallet.ResetBet();
     game.NextRound();
 }
 
 void Raise(){
-  Console.Write("Do you want to raise? (y/n):");
+Console.Write("Do you want to raise? (y/n):");
     if (Console.ReadLine() == "y") // TODO: better validation 
     {       
         bool invalidAmount = true;
@@ -62,8 +66,20 @@ void Raise(){
                 raise = print.GetInput("Enter amount: ");
                 if (user.Wallet.Greater(raise)){
                     invalidAmount = false;
-                    user.Wallet.add(raise);
-                } else {
+                    user.Wallet.subtract(raise);
+                    if (AI.Wallet.Greater(raise))
+                    {
+                        AI.Wallet.subtract(raise); // Check if has money, if not go all in
+                        CurrentBet += 2 * raise;
+                    }
+                    else
+                    {
+                        CurrentBet += raise + AI.Wallet.Balance;
+                        AI.Wallet.subtract(AI.Wallet.Balance);
+                    }
+                } 
+                else 
+                {
                     Console.WriteLine("Insufficent funds.");
                 }
                     
@@ -75,80 +91,86 @@ void Raise(){
     }
 }
 
-int GetUserGuess(){
-    int UserGuess;
-    bool invalidOption = false;
 
-    do {
-        UserGuess = print.GetInput($"{user.Name}'s guess: ");
-        invalidOption = !options.Contains(UserGuess);
-        Console.WriteLine();
-    
-        if (invalidOption) 
-        {
-            Console.WriteLine("Invalid guess");
-        }
-
-    } while(invalidOption);
-
-
-    return UserGuess;
+string GetAIGuess() 
+{
+    var AIGuess = rnd.Next(0, UserGuessMenu.Items.Count());
+    return UserGuessMenu.Items[AIGuess].Id;
 }
 
-int GetAIGuess() {
-    var AIGuess = rnd.Next(-1, 2);
-    Console.WriteLine($"AI's Guess: {AIGuess}");
-
-    return AIGuess;
+void Reset()
+{
+    game = new Game();
+    user = new User(user.Name, new Wallet(InitAmount));
+    AI = new User(AI.Name, new Wallet(InitAmount));
 }
-
 while (isrunning)
 {
-    
+    CurrentBet += 2 * DefaultBet;
+    user.Wallet.subtract(DefaultBet);
+    AI.Wallet.subtract(DefaultBet);
+
     print.PrintCurrentRound(game.CurrentRound);
     print.PrintCurrentCard(game.CurrentCard);
     Console.WriteLine(user);
     Console.WriteLine(AI);
-    print.GuessInstructions();
 
     game.GenerateNextCard();
 
-    int AIGuess = GetAIGuess();
-    // TODO: Better approach
-    int UserGuess = Int32.Parse(UserGuessMenu.Choose());
+    string AIGuess = GetAIGuess();
+
+    UserGuessMenu.Show("Press the following based on your guess: ");
+    string UserGuess = UserGuessMenu.Choose();
 
     if (AIGuess != UserGuess)
     {
-      Raise();
+        Raise();
     }
+   
+    bool playerIsRight = game.CheckGuess(UserGuess);
+    bool aiIsRight = game.CheckGuess(AIGuess);
 
-    // TODO: Suggestion - another approach
-    if (game.CheckGuess(UserGuess))
+    // Check if both players lost
+    // CHeck if both players won
+    // Check if one player or another won
+   
+    if (playerIsRight && aiIsRight)
     {
         Console.WriteLine("You were correct!\n");
-        user.Wallet.add(user.Wallet.CurrentBet);
         user.Correct++;
-    }
-    else
+        user.Wallet.add(CurrentBet/2);
+        AI.Wallet.add(CurrentBet/2);
+        CurrentBet = 0;
+    } 
+    else 
     {
-        Console.WriteLine("You were wrong!\n");
-        user.Wallet.subtract(user.Wallet.CurrentBet);
-        user.Wrong++;
+        if (playerIsRight) 
+        {
+            Console.WriteLine("You were correct!\n");
+            user.Correct++;
+            user.Wallet.add(CurrentBet);
+        } 
+        else 
+        {
+            Console.WriteLine("You were wrong!\n");
+            user.Wrong++;
+            AI.Wallet.add(CurrentBet);
+        }
+        CurrentBet = 0;
     }
 
-    if (game.CheckGuess(AIGuess))
-        AI.Wallet.add(AI.Wallet.CurrentBet);
-    else
-        AI.Wallet.subtract(AI.Wallet.CurrentBet);
-
-  
     if(user.LoseCondition() || AI.LoseCondition()){
         Console.WriteLine(user.LoseCondition() ? "You lost!\n" : "You won!\n");
         Console.WriteLine($"You survived {game.CurrentRound - 1} rounds");
         Console.WriteLine($"You guessed {user.Correct} correct and {user.Wrong} wrong\n");
-        isrunning = false;
+
+        LoseMenu.Show("Begin a new game?");
+        string option = LoseMenu.Choose();
+        if (option == "y")
+            Reset();
+        else
+            isrunning = false;
     } else {
-        // TODO: Suggestion - another approach
         NextRound();
     }
 }

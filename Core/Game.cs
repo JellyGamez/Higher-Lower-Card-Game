@@ -12,16 +12,16 @@ namespace Core
             CurrentRound = 1;
         }
 
-        public bool CheckGuess(int guess)
+        public bool CheckGuess(string guess)
         {
             // -1 = lower, 0 = equal, 1 = greater;
             switch (guess)
             {
-                case -1:
+                case "l":
                     return NextCard < CurrentCard;
-                case 0:
+                case "e":
                     return NextCard == CurrentCard;
-                case 1:
+                case "h":
                     return NextCard > CurrentCard;
                 default:
                     throw new Exception("Invalid guess");
