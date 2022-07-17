@@ -4,12 +4,7 @@ namespace Core
     {
         public void PrintCurrentCard(Card card)
         {
-            Console.WriteLine("Current card is " + card);
-        }
-
-        public void PrintCurrentBalance(Wallet wallet, string name)
-        {
-            Console.WriteLine($"{name}'s current balance is {wallet}");
+            Console.WriteLine($"Current card is {card}");
         }
 
         public int GetInput(string message)
