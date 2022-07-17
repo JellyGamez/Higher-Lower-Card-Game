@@ -5,9 +5,7 @@ namespace Core
         public int Balance {get; private set;}
         public int DefaultBet {get; private set;}
         public int CurrentBet {get; set;}
-        public bool IsEmpty{ get => Balance == 0;}
-         public bool IsNotEmpty{ get => Balance > 0;}
-
+        
         public Wallet(int balance, int defaultbet) 
         {
             Balance = balance;
@@ -34,19 +32,6 @@ namespace Core
         {
             CurrentBet = DefaultBet;
         }
-
-        public bool Has(int amount){
-            return Balance >= amount;
-        }
-
-        public bool Lesser(int amount) {
-            return Balance < amount;
-        }
-
-        public bool Greater(int amount){
-            return Balance > amount;
-        }
-        
 
         public bool raise(int amount)
         {

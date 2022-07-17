@@ -17,7 +17,7 @@ namespace Core
         }
         public override string ToString()
         {
-            return $"{Name}'s current balance is {Wallet}";
+            return Name;
         }
     }
 }
