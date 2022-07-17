@@ -126,16 +126,10 @@ while (isrunning)
     string UserGuess = UserGuessMenu.Choose();
 
     if (AIGuess != UserGuess)
-    {
         Raise();
-    }
    
     bool playerIsRight = game.CheckGuess(UserGuess);
     bool aiIsRight = game.CheckGuess(AIGuess);
-
-    // Check if both players lost
-    // CHeck if both players won
-    // Check if one player or another won
    
     if (playerIsRight && aiIsRight)
     {
@@ -162,7 +156,8 @@ while (isrunning)
         CurrentBet = 0;
     }
 
-    if(user.LoseCondition() || AI.LoseCondition()){
+    if (user.LoseCondition() || AI.LoseCondition())
+    {
         Console.WriteLine(user.LoseCondition() ? "You lost!\n" : "You won!\n");
         Console.WriteLine($"You survived {game.CurrentRound - 1} rounds");
         Console.WriteLine($"You guessed {user.Correct} correct and {user.Wrong} wrong\n");
@@ -173,7 +168,7 @@ while (isrunning)
             Reset();
         else
             isrunning = false;
-    } else {
+    } 
+    else 
         NextRound();
-    }
 }
