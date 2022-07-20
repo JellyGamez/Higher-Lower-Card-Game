@@ -11,7 +11,7 @@ namespace Core
         {
             Console.Write(message);
             var number = Console.ReadLine();
-            return number == null ? 0 : Int32.Parse(number);
+            return Int32.Parse(number);
         }
         
         public void PrintCurrentRound(int round)

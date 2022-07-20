@@ -9,6 +9,7 @@ namespace Core
         public Game() 
         {
             CurrentCard = GenerateNewCard();
+            NextCard = new Card();
             CurrentRound = 1;
         }
 

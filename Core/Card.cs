@@ -14,24 +14,34 @@ namespace Core
             Number = number;
         }
 
-        public static bool operator <(Card left, Card right)
+        public static bool operator < (Card left, Card right)
         {
             return left.Number < right.Number;
         }
 
-        public static bool operator >(Card left, Card right)
+        public static bool operator > (Card left, Card right)
         {
             return left.Number > right.Number;
         }
 
-        public static bool operator ==(Card left, Card right)
+        public static bool operator == (Card left, Card right)
         {
             return left.Number == right.Number;
         }
 
-        public static bool operator !=(Card left, Card right)
+        public static bool operator != (Card left, Card right)
         {
             return left.Number != right.Number;
+        }
+
+        public override bool Equals(object o)
+        {
+            return true;
+        }
+        
+        public override int GetHashCode()
+        {
+            return 0;
         }
 
         public override string ToString()

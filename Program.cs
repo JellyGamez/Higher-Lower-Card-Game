@@ -24,22 +24,44 @@
 // - Bet class - Homework
 
 using Core;
-Console.Write("Enter your player name: ");
-var name = Console.ReadLine();
-var InitAmount = 500;
-Console.WriteLine($"Welcome, {name}!\n");
-if (name == null)
-    return;
-Console.Write("Default betting amount: ");
-
-var DefaultBet = Int32.Parse(Console.ReadLine());
-var CurrentBet = 0;
 
 Game game = new Game();
-User user = new User(name, new Wallet(InitAmount));
-User AI = new User("AI", new Wallet(InitAmount));
 Print print = new Print();
 Random rnd = new Random();
+
+string? name;
+do 
+{
+    Console.Write("Enter your player name: ");
+    name = Console.ReadLine();
+    if (string.IsNullOrEmpty(name))
+        Console.WriteLine("Invalid name");
+} while (string.IsNullOrEmpty(name));
+
+Console.WriteLine($"Welcome, {name}!\n");
+
+var DefaultBet = 0;
+
+bool invalidAmount = true;
+do
+{
+    try 
+    {
+        DefaultBet = print.GetInput("Enter default betting amount: ");
+        invalidAmount = false;
+    } 
+    catch (Exception error)
+    {
+        Console.WriteLine(error.Message);
+    }
+
+} while (invalidAmount);
+
+var CurrentBet = 0;
+var InitAmount = 500;
+
+User user = new User(name, new Wallet(InitAmount));
+User AI = new User("AI", new Wallet(InitAmount));
 
 Menu UserGuessMenu = new Menu("UserGuess", new List<MenuItem>{
     new MenuItem("l", "lower"),
@@ -53,21 +75,25 @@ Menu LoseMenu = new Menu("Lose", new List<MenuItem>{
 
 bool isrunning = true;
 
-void NextRound(){
+void NextRound()
+{
     game.NextRound();
 }
 
-void Raise(){
-Console.Write("Do you want to raise? (y/n):");
+void Raise()
+{
+    Console.Write("Do you want to raise? (y/n):");
     if (Console.ReadLine() == "y") // TODO: better validation 
     {       
         bool invalidAmount = true;
         int raise = 0;
         do
         {
-            try {
+            try 
+            {
                 raise = print.GetInput("Enter amount: ");
-                if (user.Wallet.Has(raise)){
+                if (user.Wallet.Has(raise))
+                {
                     invalidAmount = false;
                     user.Wallet.subtract(raise);
                     if (AI.Wallet.Has(raise))
@@ -85,15 +111,15 @@ Console.Write("Do you want to raise? (y/n):");
                 {
                     Console.WriteLine("Insufficent funds.");
                 }
-                    
-            } catch(Exception error){
+            } 
+            catch (Exception error)
+            {
                 Console.WriteLine(error.Message);
             }
 
-        } while(invalidAmount);
+        } while (invalidAmount);
     }
 }
-
 
 string GetAIGuess() 
 {
