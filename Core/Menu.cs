@@ -15,6 +15,7 @@ namespace Core
             Name = name;
             Items = items;
         }
+        
         public override string ToString()
         {
             return Name;
@@ -49,6 +50,7 @@ namespace Core
 
             return String.IsNullOrEmpty(UserOption) ? String.Empty : UserOption;
         }
+
         public bool IsValid(string? id)
         {
             if (String.IsNullOrEmpty(id))

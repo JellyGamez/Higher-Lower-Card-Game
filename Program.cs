@@ -40,14 +40,14 @@ do
 
 Console.WriteLine($"Welcome, {name}!\n");
 
-var DefaultBet = 0;
+var defaultbet = 0;
 
 bool invalidAmount = true;
 do
 {
     try 
     {
-        DefaultBet = print.GetInput("Enter default betting amount: ");
+        defaultbet = print.GetInput("Enter default betting amount: ");
         invalidAmount = false;
     } 
     catch (Exception error)
@@ -57,9 +57,9 @@ do
 
 } while (invalidAmount);
 
-var CurrentBet = 0;
 var InitAmount = 500;
 
+Betting betting = new Betting(defaultbet);
 User user = new User(name, new Wallet(InitAmount));
 User AI = new User("AI", new Wallet(InitAmount));
 
@@ -72,8 +72,6 @@ Menu LoseMenu = new Menu("Lose", new List<MenuItem>{
     new MenuItem("y", "yes"),
     new MenuItem("n", "no")
 });
-
-bool isrunning = true;
 
 void NextRound()
 {
@@ -95,22 +93,12 @@ void Raise()
                 if (user.Wallet.Has(raise))
                 {
                     invalidAmount = false;
-                    user.Wallet.subtract(raise);
-                    if (AI.Wallet.Has(raise))
-                    {
-                        AI.Wallet.subtract(raise); // Check if has money, if not go all in
-                        CurrentBet += 2 * raise;
-                    }
-                    else
-                    {
-                        CurrentBet += raise + AI.Wallet.Balance;
-                        AI.Wallet.subtract(AI.Wallet.Balance);
-                    }
+                    
+                    betting.UserRaise(user, raise);
+                    betting.AIRaise(user, raise);
                 } 
                 else 
-                {
                     Console.WriteLine("Insufficent funds.");
-                }
             } 
             catch (Exception error)
             {
@@ -133,11 +121,12 @@ void Reset()
     user = new User(user.Name, new Wallet(InitAmount));
     AI = new User(AI.Name, new Wallet(InitAmount));
 }
+
+bool isrunning = true;
+
 while (isrunning)
 {
-    CurrentBet += 2 * DefaultBet;
-    user.Wallet.subtract(DefaultBet);
-    AI.Wallet.subtract(DefaultBet);
+    betting.Bet(new List<User> {user, AI});
 
     print.PrintCurrentRound(game.CurrentRound);
     print.PrintCurrentCard(game.CurrentCard);
@@ -160,26 +149,24 @@ while (isrunning)
     if (playerIsRight && aiIsRight)
     {
         Console.WriteLine("You were correct!\n");
-        user.Correct++;
-        user.Wallet.add(CurrentBet/2);
-        AI.Wallet.add(CurrentBet/2);
-        CurrentBet = 0;
+        betting.Split(new List<User> {user, AI});
+        betting.ResetBet();
     } 
-    else 
+    else  
     {
         if (playerIsRight) 
         {
             Console.WriteLine("You were correct!\n");
-            user.Correct++;
-            user.Wallet.add(CurrentBet);
+            betting.Won(user);
+            betting.Lost(AI);
         } 
         else 
         {
             Console.WriteLine("You were wrong!\n");
-            user.Wrong++;
-            AI.Wallet.add(CurrentBet);
+            betting.Lost(user);
+            betting.Won(AI);
         }
-        CurrentBet = 0;
+        betting.ResetBet();
     }
 
     if (user.LoseCondition() || AI.LoseCondition())
