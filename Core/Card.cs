@@ -34,9 +34,9 @@ namespace Core
             return left.Number != right.Number;
         }
 
-        public override bool Equals(object o)
+        public override bool Equals(object? o)
         {
-            return true;
+           return true;
         }
         
         public override int GetHashCode()

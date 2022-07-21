@@ -81,7 +81,7 @@ void NextRound()
 void Raise()
 {
     Console.Write("Do you want to raise? (y/n):");
-    if (Console.ReadLine() == "y") // TODO: better validation 
+    if (Console.ReadLine() == "y")
     {       
         bool invalidAmount = true;
         int raise = 0;
@@ -94,8 +94,11 @@ void Raise()
                 {
                     invalidAmount = false;
                     
-                    betting.UserRaise(user, raise);
-                    betting.AIRaise(user, raise);
+                    betting.Raise(user, raise);
+                    if (AI.Wallet.Has(raise))
+                        betting.Raise(AI, raise);
+                    else
+                        betting.Raise(AI, AI.Wallet.Balance);
                 } 
                 else 
                     Console.WriteLine("Insufficent funds.");

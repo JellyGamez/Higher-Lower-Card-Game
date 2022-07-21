@@ -47,24 +47,10 @@ namespace Core
             user.Wrong++;
         }
 
-        public void UserRaise(User user, int raise)
+        public void Raise(User user, int raise)
         {
             user.Wallet.subtract(raise);
             CurrentBet += raise;
-        }
-
-        public void AIRaise(User AI, int raise)
-        {
-            if (AI.Wallet.Has(raise))
-            {
-                CurrentBet += raise;
-                AI.Wallet.subtract(raise);
-            }
-            else
-            {
-                CurrentBet += AI.Wallet.Balance;
-                AI.Wallet.subtract(AI.Wallet.Balance);
-            }
         }
     }
 }
