@@ -1,32 +1,10 @@
-﻿
-// Notes
-// - Cards: Ace = 1, J = 11, Q = 12, K = 13
+﻿// Cards: Ace = 1, J = 11, Q = 12, K = 13
 // 52 total cards
 // Options: Higher, Lower, Equal
-
-// System picks first card
-// User inputs option
-// System picks second card
-// If user is right then rewatd, otherwise penalize
-
-// SOLID Principles = S.O.L.I.D.
-
-// S - Single Responsability
-// O - Open-Closed 
-// L - Liskov Substition
-// I - Interface Segration
-// D - Dependency Inversion
-
-// Next Time:
-// - Return user option with generic types
-// - Improve UI - Show menu inline, stacked, etc/
-// - Resolve warnings - homework
-// - Bet class - Homework
 
 using Core;
 
 Game game = new Game();
-Print print = new Print();
 Random rnd = new Random();
 
 string? name;
@@ -47,7 +25,7 @@ do
 {
     try 
     {
-        defaultbet = print.GetInput("Enter default betting amount: ");
+        defaultbet = UI.GetInteger("Enter default betting amount: ");
         invalidAmount = false;
     } 
     catch (Exception error)
@@ -89,7 +67,7 @@ void Raise()
         {
             try 
             {
-                raise = print.GetInput("Enter amount: ");
+                raise = UI.GetInteger("Enter amount: ");
                 if (user.Wallet.Has(raise))
                 {
                     invalidAmount = false;
@@ -131,8 +109,8 @@ while (isrunning)
 {
     betting.Bet(new List<User> {user, AI});
 
-    print.PrintCurrentRound(game.CurrentRound);
-    print.PrintCurrentCard(game.CurrentCard);
+    UI.PrintCurrentRound(game.CurrentRound);
+    UI.PrintCurrentCard(game.CurrentCard);
     Console.WriteLine(user);
     Console.WriteLine(AI);
 
