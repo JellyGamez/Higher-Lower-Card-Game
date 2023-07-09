@@ -33,16 +33,6 @@ namespace Core
             return Balance >= amount;
         }
 
-        public bool Lesser(int amount) 
-        {
-            return Balance < amount;
-        }
-
-        public bool Greater(int amount)
-        {
-            return Balance > amount;
-        }
-
         public override string ToString()
         {
             return Balance.ToString();

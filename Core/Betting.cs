@@ -5,11 +5,6 @@ namespace Core
         public int CurrentBet {get; private set;} = 0;
         public int DefaultBet {get; private set;}
 
-        public Betting()
-        {
-
-        }
-
         public Betting(int defaultbet)
         {
             DefaultBet = defaultbet;

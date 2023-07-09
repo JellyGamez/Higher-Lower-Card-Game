@@ -42,8 +42,7 @@ namespace Core
                 
                 if (invalidOption) 
                 {
-                    Console.WriteLine();
-                    Console.WriteLine("Invalid option");
+                    Console.WriteLine("\nInvalid option");
                 }
 
             } while(invalidOption);

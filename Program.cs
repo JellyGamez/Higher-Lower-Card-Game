@@ -58,6 +58,11 @@ void NextRound()
 
 void Raise()
 {
+    if (user.Wallet.IsEmpty)
+    {
+        Console.WriteLine("You can't raise because your balance is already 0.");
+        return;
+    }
     Console.Write("Do you want to raise? (y/n):");
     if (Console.ReadLine() == "y")
     {       
