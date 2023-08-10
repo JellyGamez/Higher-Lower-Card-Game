@@ -64,35 +64,47 @@ void Raise()
         return;
     }
     Console.Write("Do you want to raise? (y/n):");
-    if (Console.ReadLine() == "y")
-    {       
-        bool invalidAmount = true;
-        int raise = 0;
-        do
-        {
-            try 
-            {
-                raise = UI.GetInteger("Enter amount: ");
-                if (user.Wallet.Has(raise))
-                {
-                    invalidAmount = false;
-                    
-                    betting.Raise(user, raise);
-                    if (AI.Wallet.Has(raise))
-                        betting.Raise(AI, raise);
-                    else
-                        betting.Raise(AI, AI.Wallet.Balance);
-                } 
-                else 
-                    Console.WriteLine("Insufficent funds.");
-            } 
-            catch (Exception error)
-            {
-                Console.WriteLine(error.Message);
-            }
 
-        } while (invalidAmount);
-    }
+    bool invalidOption = true;
+    do
+    {
+        var option = Console.ReadLine();
+        if (option == "y")
+        {
+            bool invalidAmount = true;
+            int raise = 0;
+            do
+            {
+                try
+                {
+                    raise = UI.GetInteger("Enter amount: ");
+                    if (user.Wallet.Has(raise))
+                    {
+                        invalidAmount = false;
+
+                        betting.Raise(user, raise);
+                        if (AI.Wallet.Has(raise))
+                            betting.Raise(AI, raise);
+                        else
+                            betting.Raise(AI, AI.Wallet.Balance);
+                    }
+                    else
+                        Console.WriteLine("Insufficent funds.");
+                }
+                catch (Exception error)
+                {
+                    Console.WriteLine(error.Message);
+                }
+
+            } while (invalidAmount);
+            invalidOption = false;
+        }
+        else if (option != "n")
+            Console.WriteLine("Invalid option.");
+        else
+            invalidOption = false;
+    } while (invalidOption);
+
 }
 
 string GetAIGuess() 
