@@ -19,7 +19,9 @@ The classic higher/lower card game. Written in C#
 ## Project setup
 
 
-``` dotnet run ```
+```sh
+dotnet run
+```
 
 ## Note
 
