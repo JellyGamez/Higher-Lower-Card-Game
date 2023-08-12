@@ -1,0 +1,14 @@
+C:\Users\PetricaOmulLiliac\Documents\GitHub\Higher-Lower-Card-Game\bin\Debug\net7.0\demo.exe
+C:\Users\PetricaOmulLiliac\Documents\GitHub\Higher-Lower-Card-Game\bin\Debug\net7.0\demo.deps.json
+C:\Users\PetricaOmulLiliac\Documents\GitHub\Higher-Lower-Card-Game\bin\Debug\net7.0\demo.runtimeconfig.json
+C:\Users\PetricaOmulLiliac\Documents\GitHub\Higher-Lower-Card-Game\bin\Debug\net7.0\demo.dll
+C:\Users\PetricaOmulLiliac\Documents\GitHub\Higher-Lower-Card-Game\bin\Debug\net7.0\demo.pdb
+C:\Users\PetricaOmulLiliac\Documents\GitHub\Higher-Lower-Card-Game\obj\Debug\net7.0\demo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PetricaOmulLiliac\Documents\GitHub\Higher-Lower-Card-Game\obj\Debug\net7.0\demo.AssemblyInfoInputs.cache
+C:\Users\PetricaOmulLiliac\Documents\GitHub\Higher-Lower-Card-Game\obj\Debug\net7.0\demo.AssemblyInfo.cs
+C:\Users\PetricaOmulLiliac\Documents\GitHub\Higher-Lower-Card-Game\obj\Debug\net7.0\demo.csproj.CoreCompileInputs.cache
+C:\Users\PetricaOmulLiliac\Documents\GitHub\Higher-Lower-Card-Game\obj\Debug\net7.0\demo.dll
+C:\Users\PetricaOmulLiliac\Documents\GitHub\Higher-Lower-Card-Game\obj\Debug\net7.0\refint\demo.dll
+C:\Users\PetricaOmulLiliac\Documents\GitHub\Higher-Lower-Card-Game\obj\Debug\net7.0\demo.pdb
+C:\Users\PetricaOmulLiliac\Documents\GitHub\Higher-Lower-Card-Game\obj\Debug\net7.0\demo.genruntimeconfig.cache
+C:\Users\PetricaOmulLiliac\Documents\GitHub\Higher-Lower-Card-Game\obj\Debug\net7.0\ref\demo.dll
