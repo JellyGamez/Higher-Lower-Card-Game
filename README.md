@@ -1,8 +1,6 @@
 
 # Higher/Lower card game
-
 The classic higher/lower card game. Written in C#
-
 
 ## Features
 - Played in rounds. Each round guess wheter the next card is higher, lower or equal
@@ -15,16 +13,12 @@ The classic higher/lower card game. Written in C#
 - Lose condition: When **player** balance reaches 0
 - Option to either quit or start over when current game ends
 
-
 ## Project setup
-
-
 ```sh
 dotnet run
 ```
 
 ## Note
-
 This project uses net7.0 by default. If you wish to use other .net versions, update the following in the `demo.csproj` file:
 
 `<TargetFramework>`**your version here**`</TargetFramework>`
