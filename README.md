@@ -20,3 +20,9 @@ The classic higher/lower card game. Written in C#
 
 
 ``` dotnet run ```
+
+## Note
+
+This project uses net7.0 by default. If you wish to use other .net versions, update the following in the `demo.csproj` file:
+
+`<TargetFramework>`**your version here**`</TargetFramework>`
