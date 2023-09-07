@@ -18,19 +18,19 @@ A terminal-based recreation of the higher/lower card game written in C#.
 ### 1. Clone the project
 
 ```bash
-  git clone https://github.com/JellyGamez/Higher-Lower-card-game.git
+git clone https://github.com/JellyGamez/Higher-Lower-card-game.git
 ```
 
 ### 2. Go to the project directory
 
 ```bash
-  cd Higher-Lower-card-game
+cd Higher-Lower-card-game
 ```
 
 ### 3. Launch the game
 
 ```bash
-  dotnet run
+dotnet run
 ```
 
 ## Note
