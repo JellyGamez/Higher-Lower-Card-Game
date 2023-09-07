@@ -7,7 +7,7 @@ A terminal-based recreation of the higher/lower card game written in C#.
 - Betting:
 
   - Set up default betting amount at the beginning a new game
-  - Option to raise the bet when player guess differs from the AI guess
+  - Option to raise the bet when your guess differs from the AI's
 
 - Option to either quit or start over when current game ends
 - Win Condition: The player wins when AI's balance reaches 0
