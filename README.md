@@ -1,21 +1,36 @@
-
 # Higher/Lower card game
-The classic higher/lower card game written in C#.
+A terminal-based recreation of the higher/lower card game written in C#.
 
 ## Features
-- Played in rounds. Each round guess whether the next card will be higher, lower or equal
-- Playing against an **AI** opponent
+- The game is played in rounds. Each round players guess whether the next card will be higher, lower or equal
+- You play against an **AI** opponent
+- Betting:
 
-- Betting
-  - Set up default betting amount when starting a new game
-  - Option to raise the bet when **player** guess differs from the **AI** guess
-- Win condition: When **AI** balance reaches 0
-- Lose condition: When **player** balance reaches 0
+  - Set up default betting amount at the beginning a new game
+  - Option to raise the bet when player guess differs from the AI guess
+
 - Option to either quit or start over when current game ends
+- Win Condition: The player wins when AI's balance reaches 0
+- Lose Condition: The player loses when their balance reaches 0
 
-## Project setup
-```sh
-dotnet run
+## Getting started
+
+### 1. Clone the project
+
+```bash
+  git clone https://github.com/JellyGamez/Higher-Lower-card-game.git
+```
+
+### 2. Go to the project directory
+
+```bash
+  cd Higher-Lower-card-game
+```
+
+### 3. Launch the game
+
+```bash
+  dotnet run
 ```
 
 ## Note
