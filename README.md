@@ -1,7 +1,10 @@
-# Higher Lower Card Game
+<h1 align="center">
+  Higher Lower Card Game
+</h1>
+
 A terminal-based implementation of the well-known higher lower card game, developed in C#. This was my first hands-on experience with Object Oriented Programming and SOLID principles, providing a valuable learning opportunity.
 
-## Features
+## ⭐ Features
 - The game is played in rounds. Each round players guess whether the next card will be higher, lower or equal
 
 - You play against an AI opponent
@@ -16,7 +19,7 @@ A terminal-based implementation of the well-known higher lower card game, develo
 
 - Lose Condition: The AI brings your balance down to 0
 
-## Quick Start
+## 🚀 Quick Start
 
 ### 1. Clone the project
 
@@ -36,7 +39,7 @@ cd Higher-Lower-card-game
 dotnet run
 ```
 
-## Note
+## 📋 Note
 This project uses .NET 8.0 by default. If you wish to use other .net versions, update the following in the `demo.csproj` file:
 
 ```xml
@@ -44,8 +47,7 @@ This project uses .NET 8.0 by default. If you wish to use other .net versions, u
   <PropertyGroup>
     <OutputType>Exe</OutputType>
 
-    // Your version here
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework> // Your version here
 
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
