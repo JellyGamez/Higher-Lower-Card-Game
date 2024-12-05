@@ -4,7 +4,7 @@
 
 A terminal-based implementation of the well-known higher lower card game, developed in C#. This was my first hands-on experience with Object Oriented Programming and SOLID principles, providing a valuable learning opportunity.
 
-## ⭐ Features
+## 🛠️ Features
 - The game is played in rounds. Each round players guess whether the next card will be higher, lower or equal
 
 - You play against an AI opponent
